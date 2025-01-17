@@ -97,6 +97,10 @@ cat <<'EOF' | jq -r 'include "heaths/version"; . | max_by(toversion)'
 EOF
 ```
 
+```text
+"1.0.0"
+```
+
 ## License
 
 This project is licensed under the [MIT license](LICENSE.txt).
