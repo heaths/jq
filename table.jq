@@ -1,6 +1,6 @@
-# Copyright 2024 Heath Stewart.
+# Copyright 2025 Heath Stewart.
 # Licensed under the MIT License. See LICENSE.txt in the project root for license information.
-module {version: "0.1.0", homepage: "https://github.com/heaths"};
+module {version: "0.1.0", homepage: "https://github.com/heaths/jq"};
 
 def _table:
   type as $type

@@ -51,6 +51,52 @@ echo '[{"num":1,"desc":"one","sib":[0,2]},{"num":2,"desc":"two","sib":[1,3]}]' |
 2       two
 ```
 
+### toversion
+
+`toversion` parses [semantic versions](https://semver.org) into an array suitable for sorting.
+
+```bash
+cat <<'EOF' | jq -r 'include "heaths/version"; . | sort_by(toversion)'
+[
+    "0.1.0",
+    "1.2.3-beta1",
+    "2.4-beta.0",
+    "1.2.3",
+    "1.2.3-beta.1",
+    "1.2.3-beta+abcd1234",
+    "1.2.3-alpha",
+    "0.2.0",
+    "2.3.4"
+]
+EOF
+```
+
+```text
+[
+  "0.1.0",
+  "0.2.0",
+  "1.2.3-alpha",
+  "1.2.3-beta+abcd1234",
+  "1.2.3-beta.1",
+  "1.2.3-beta1",
+  "1.2.3",
+  "2.3.4",
+  "2.4-beta.0"
+]
+```
+
+You can also use it to get the latest version using `max_by`.
+
+```bash
+cat <<'EOF' | jq -r 'include "heaths/version"; . | max_by(toversion)'
+[
+  "1.0.0",
+  "0.1.0",
+  "1.0.0-beta.0"
+]
+EOF
+```
+
 ## License
 
 This project is licensed under the [MIT license](LICENSE.txt).
