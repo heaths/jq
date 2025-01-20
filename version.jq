@@ -1,13 +1,15 @@
 # Copyright 2025 Heath Stewart.
 # Licensed under the MIT License. See LICENSE.txt in the project root for license information.
-module {version: "0.1.0", homepage: "https://github.com/heaths/jq"};
+module {version: "0.2.0", homepage: "https://github.com/heaths/jq"};
 
+# toversion parses semvers for use in comparisons.
+# based on https://stackoverflow.com/a/75770668/462376.
 def toversion:
-  # ignore build metadata
-  sub("[+].*"; "")
-  # ensure "-beta" proceeds "-beta.1"
-  | sub("-(?<pre>[0-9A-Za-z-]+)$"; "-\(.pre).0"; "g")
-  # ensure releases come after prereleases
-  | . + "-zzz"
-  | [splits("[-.]")]
-  | map(tonumber? // .);
+  # ignore build metadata e.g., "+g123abc"
+  sub("\\+.*$"; "")
+  # split version and patch metadata e.g., ["1.2.3","beta.1"]
+  | capture("^(?<v>[^-]+)(?:-(?<p>.*))?$") | [.v, .p // empty]
+  # split each element into nested arrays by dots e.g., [[1,2,3],["beta",1]]
+  | map(split(".") | map(tonumber? // .))
+  # use empty object if patch metadata missing since it sorts after array e.g., [[1,2,3],{}]
+  | .[1] |= (. // {});
