@@ -101,6 +101,32 @@ EOF
 "1.0.0"
 ```
 
+### release
+
+`release` and `release($pre)` can be used to filter versions. `$pre` is `false` by default and will only show release semvers - those without patch metdata.
+
+```bash
+versions='["0.1.0","1.0.0-beta.1","0.2.0","1.0.0"]'
+echo $versions | jq -r 'import "heaths/version" as v; .[] | select(v::toversion | v::release)'
+```
+
+```text
+"0.1.0"
+"0.2.0"
+"1.0.0"
+```
+
+```bash
+echo $versions | jq -r 'import "heaths/version" as v; .[] | select(v::toversion | v::release(true))'
+```
+
+```text
+"0.1.0"
+"1.0.0-beta.1"
+"0.2.0"
+"1.0.0"
+```
+
 ## License
 
 This project is licensed under the [MIT license](LICENSE.txt).

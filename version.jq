@@ -1,6 +1,6 @@
 # Copyright 2025 Heath Stewart.
 # Licensed under the MIT License. See LICENSE.txt in the project root for license information.
-module {version: "0.2.0", homepage: "https://github.com/heaths/jq"};
+module {version: "0.3.0", homepage: "https://github.com/heaths/jq"};
 
 # toversion parses semvers for use in comparisons.
 # based on https://stackoverflow.com/a/75770668/462376.
@@ -13,3 +13,8 @@ def toversion:
   | map(split(".") | map(tonumber? // .))
   # use empty object if patch metadata missing since it sorts after array e.g., [[1,2,3],{}]
   | .[1] |= (. // {});
+
+# release filters semvers to only releases or, if passed false, all versions.
+def release($pre):
+  if $pre then . else select(.[1] == {}) end;
+def release: release(false);
