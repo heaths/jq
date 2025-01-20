@@ -1,0 +1,22 @@
+import "version" as m; sort_by(m::toversion)
+["0.1.0","1.0.0-beta.1","0.2.0+g123","1.0.0-beta.2+g234","1.2.0-alpha","1.0.0+g345","1.0.1"]
+["0.1.0","0.2.0+g123","1.0.0-beta.1","1.0.0-beta.2+g234","1.0.0+g345","1.0.1","1.2.0-alpha"]
+
+import "version" as m; max_by(m::toversion)
+["0.1.0","1.0.0-beta.1","0.2.0+g123","1.0.0-beta.2+g234","1.2.0-alpha","1.0.0+g345","1.0.1"]
+"1.2.0-alpha"
+
+import "version" as m; max_by(m::toversion | m::release)
+["0.1.0","1.0.0-beta.1","0.2.0+g123","1.0.0-beta.2+g234","1.2.0-alpha","1.0.0+g345","1.0.1"]
+"1.0.1"
+
+import "version" as m; .[] | select(m::toversion | m::release)
+["0.1.0","1.0.0-beta.1","0.2.0"]
+"0.1.0"
+"0.2.0"
+
+import "version" as m; .[] | select(m::toversion | m::release(true))
+["0.1.0","1.0.0-beta.1","0.2.0"]
+"0.1.0"
+"1.0.0-beta.1"
+"0.2.0"

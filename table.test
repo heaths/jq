@@ -1,0 +1,18 @@
+import "table" as m; m::table
+[{"n":1,"t":"one"},{"n":2,"t":"two"}]
+"n\tt"
+"1\tone"
+"2\ttwo"
+
+import "table" as m; m::table_rows
+[{"n":1,"t":"one"},{"n":2,"t":"two"}]
+"1\tone"
+"2\ttwo"
+
+import "table" as m; try m::table catch .
+{"n":1,"t":"one"}
+"expected array, got object"
+
+import "table" as m; try m::table catch .
+["string"]
+"expected array, got array of string"
