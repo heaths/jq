@@ -43,7 +43,7 @@ num     desc
 
 ```bash
 echo '[{"num":1,"desc":"one","sib":[0,2]},{"num":2,"desc":"two","sib":[1,3]}]' |
-  jq -r 'include "heaths/table"; table'
+  jq -r 'include "heaths/table"; table_rows'
 ```
 
 ```text
