@@ -1,6 +1,6 @@
 import "table" as m; m::table
 [{"n":1,"t":"one"},{"n":2,"t":"two"}]
-"a\tt"
+"n\tt"
 "1\tone"
 "2\ttwo"
 
