@@ -14,10 +14,10 @@ def _table:
   end;
 
 # Formats an array of objects' scalar values to a tab-separated table with a header row containing key names.
-# Usage: echo '[{"foo":"baz","bar":1},{"foo":qux","bar":2}]' | jq -r 'include "table"; table' | column -t
+# Usage: echo '[{"foo":"baz","bar":1},{"foo":"qux","bar":2}]' | jq -r 'include "table"; table' | column -t
 def table: _table | @tsv;
 
 # Formats an array of objects' scalar values to a tab-separated table without a header row
-# Usage: echo '[{"foo":"baz","bar":1},{"foo":qux","bar":2}]' | jq -r 'include "table"; table_row' | column -t
+# Usage: echo '[{"foo":"baz","bar":1},{"foo":"qux","bar":2}]' | jq -r 'include "table"; table_rows' | column -t
 def table_rows: [_table][1:][] | @tsv;
 
