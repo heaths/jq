@@ -1,0 +1,37 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Test
+        run: |
+          code=
+          re="^[*]{3} (Expected .*) for test at line number ([0-9]+):"
+          for f in *.test
+          do
+            echo "::group::$f"
+            while IFS= read -r line
+            do
+              echo "$line"
+              if [[ $line =~ $re ]]
+              then
+                echo "::error file=$f,line=${BASH_REMATCH[2]}::${BASH_REMATCH[1]}"
+                code=1
+              fi
+            done < <(jq --run-tests $f)
+            echo "::endgroup::"
+          done
+          exit $code
