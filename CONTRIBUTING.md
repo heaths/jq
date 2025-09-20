@@ -12,6 +12,12 @@ Be sure to add tests for new functions and run them within this file directory:
 jq --run-tests version.test
 ```
 
+To run all tests:
+
+```bash
+find . -name '*.test' -exec jq --run-tests {} \;
+```
+
 Test files may contain comments prefaced with `#` and lines consistenting of:
 
 1. The jq program.

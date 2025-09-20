@@ -4,7 +4,7 @@ These are handy [jq] modules that can be imported and used in your jq expression
 
 ```bash
 echo '[{"num":1,"desc":"one"},{"num":2,"desc":"two"}]' |
-  jq -r 'include "heaths/table"; table'
+  jq -r 'include "heaths/format"; table'
 ```
 
 ## Install
@@ -28,7 +28,7 @@ The first row is used to identify scalar values' key names used for the header r
 
 ```bash
 echo '[{"num":1,"desc":"one","sib":[0,2]},{"num":2,"desc":"two","sib":[1,3]}]' |
-  jq -r 'include "heaths/table"; table'
+  jq -r 'include "heaths/format"; table'
 ```
 
 ```text
@@ -43,7 +43,7 @@ num     desc
 
 ```bash
 echo '[{"num":1,"desc":"one","sib":[0,2]},{"num":2,"desc":"two","sib":[1,3]}]' |
-  jq -r 'include "heaths/table"; table_rows'
+  jq -r 'include "heaths/format"; table_rows'
 ```
 
 ```text
